@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>Kermit Clicker</title>
+    </head>
+    <body>
+        <style>.outline {display: block; background-color: white;border: 3px solid black;color: black;padding: 8px 16px;font-size: 16px;cursor: pointer;border-radius: 8px;box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);}
+        .square {background-color: white;border: 3px solid black;color: black;padding: 8px 16px;font-size: 16px;border-radius: 8px;box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);}
+        .shop {width: 300px; height: 387px; overflow-y: auto; border: 3px solid black;color: black;padding: 8px 16px;font-size: 16px;border-radius: 8px;box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);}
+        .outline:hover {background-color: #f0f0f0;}
+        .hidden {display: none;}
+        .description {font-family: 'Comic Sans MS'; margin-top: 5px;}
+        .kermit {transition: all .2s ease-in-out;}
+        .kermit:hover { transform: scale(1.01);}
+        .kermit:active { transform: scale(0.99);}</style>
+        <style src="index.css"></style>
+        <p style="font-family: 'Comic Sans MS'; font-size: 30px; color: rgb(25, 182, 25); position: relative; top: 150px; text-align: center;";>Click to show Kermit apprectiation</p>
+        <p style="font-family: 'Comic Sans MS'; font-size: 30px; position: relative; top: 130px; text-align: center;">Points: <span id="points">0</span></p>
+        <img src=https://i.kym-cdn.com/photos/images/facebook/001/406/301/4f8.jpeg height="320x"; width="208px"; onclick="Click()"; class="kermit"; style="position: relative; top: 120px; display: block; margin-left: auto; margin-right: auto; cursor: pointer;"; id="clicker";>
+        <script>
+        let points = 0;
+        let pointsPerClick = 1;
+
+        function Click() {
+            points = points + pointsPerClick;
+            Update();
+        }
+
+        function buyUpgrade(cost,type,upgrade) {
+            for (let i = 0; i < document.getElementById('quantity').value; i++) { 
+                if (points >= cost) {
+                    points = points - cost;
+                    if (type == 1) {
+                        pointsPerClick = pointsPerClick + upgrade;
+                    }
+                    Update()
+                }
+                else {return;}
+            }
+        }
+
+        function Shop() {
+            document.getElementById("visible").classList.toggle("hidden");
+            document.getElementById("visible2").classList.toggle("hidden");
+        }
+
+        function checkValue(thing) {
+            if (thing.value < 1) {
+                thing.value = 1;}
+            if (1000 < thing.value) {
+                thing.value = 1000;}
+        }
+
+        function Update() {
+            document.getElementById("ppc").innerHTML = pointsPerClick;
+            document.getElementById("points").innerHTML = points;
+            document.title = points+' points - Kermit Clicker'
+            if (points >= 1000000) {
+                document.getElementById('clicker').src = 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ebd5edf5-3d68-4fa2-a17f-a53c97f1e345/dfe5mgk-1c0f755e-decd-48a7-979a-b98ce13c8cd0.png/v1/fill/w_894,h_894,q_70,strp/kermit__the_powerful_wizard_by_mrshodan1984_dfe5mgk-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAyNCIsInBhdGgiOiJcL2ZcL2ViZDVlZGY1LTNkNjgtNGZhMi1hMTdmLWE1M2M5N2YxZTM0NVwvZGZlNW1nay0xYzBmNzU1ZS1kZWNkLTQ4YTctOTc5YS1iOThjZTEzYzhjZDAucG5nIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.iSbuHmNk4DZvou7NXqRflk61ACz5VOn02x6HtwG-TuM';
+                document.getElementById('clicker').width = 320;}
+        }
+        </script>
+        <button class="outline"; style="position: absolute; top: 160px; left: 340px;"; onclick="Shop()";>Shop</button>
+        <p class="hidden"; id="visible"; style="font-family: 'Comic Sans MS'; font-size: 20px; position: absolute; left: 90px; top: 180;">Upgrades:</p>
+            <div id="visible2" class="shop" style="position: absolute; left: 90; top: 233px;">
+                <div style="margin-bottom: 20px;">
+                    <button class="outline"; style="width: 100%" onclick="buyUpgrade(50,1,1)">Kermit Lovers</button>
+                    <p class="description">50$, +1 Points per click.</p>
+                </div>
+            </div>
+        <div class="square"; style="width: 250px; height: 400px; position: absolute; left: 1000px; top: 220px;"></div>
+        <p style="font-family: 'Comic Sans MS'; position:absolute; top: 205px; left: 1010px; font-size: 26px;">Stats:</p>
+        <p style="font-family: 'Comic Sans MS'; position:absolute; top: 250px; left: 1010px; font-size: 16px;">Points per click: <span id="ppc">1</span></p>
+        <input type="number" id="quantity" name="quantity" min="1" step="1" value="1" class="square" style="position:absolute; left: 90px; top: 160px;" oninput="checkValue(this)">
+        <script>document.getElementById("visible2").classList.add("hidden");</script>
+    </body>
+</html>
